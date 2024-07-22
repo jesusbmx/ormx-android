@@ -108,9 +108,25 @@ public class Nota {
   public static OrmIterator<Nota> search(String q, Date date) throws SQLException {
     DB db = DB.db;
     OrmResultSet result = db.dao(Nota.class).queryBuilder()
+      //.select("*")
+      //.distinct()
+      //.from("tb_nota")
       .where("CAST(fecha AS DATE)", "=", date.getTime())
       .like("texto", q)
-      .order_by("fecha", "DESC").order_by("id", "DESC");
+      //.where_in("id", 50, 60, 30)
+      //.or_where_in("id", 22, 44)
+      //.where("id", ">", 14)
+      //.where_not_in("id", 50, 60, 30)
+      //.or_where_not_in("id", 22, 44)
+      //.not_like("texto", "jet")
+      //.join("tb_nota b", "tb_nota.id = b.id")
+      //.join("tb_nota c", "tb_nota.id = c.id", "LEFT")
+      .order_by("fecha", "DESC").order_by("id", "DESC")
+      //.group_by("tb_nota.id")
+      //.group_by("tb_nota.texto")
+      //.having("tb_nota = 'Hello world'")
+      //.limit(7, 25)
+    ;
     
     return result.it(Nota.class);
   }
