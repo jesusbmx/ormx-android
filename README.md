@@ -12,124 +12,124 @@ public class Nota {
 
 // Variables
 
-	@ColumnInfo(primaryKey = true, autoIncrement = true)
-	public long id;
+  @ColumnInfo(primaryKey = true, autoIncrement = true)
+  public long id;
 
-	@ColumnInfo
-	public long fecha;
+  @ColumnInfo
+  public long fecha;
 
-	@ColumnInfo
-	public String texto;
+  @ColumnInfo
+  public String texto;
 
 // Constructor
 
-	public Nota() {
-		// TODO Auto-generated constructor stub
-	}
+  public Nota() {
+	// TODO Auto-generated constructor stub
+  }
 	
 // Funciones 
 	
-	/**
-	 * @return una lista del recurso.
-	 */
-	public static List<Nota> getAll() {
-		DB db = DB.db;
-		try {
-			return db.queryBuilder()
-					.order_by("fecha", "desc")
-					.get_list(Nota.class);
-		} finally {
-			db.close();
-		}
+  /**
+   * @return una lista del recurso.
+   */
+  public static List<Nota> getAll() {
+    DB db = DB.db;
+	try {
+	  return db.queryBuilder()
+			.order_by("fecha", "desc")
+			.get_list(Nota.class);
+	} finally {
+	  db.close();
 	}
+  }
 
-	/**
-	 * Guarda el registro.
-	 * 
-	 * @param o modelo
-	 * 
-	 * @return boolean <b>TRUE</b> exito <b>FALSE</b> fallo
-	 */
-	public static boolean save(Nota o) {
-		return (o.id == 0) ? insert(o) : update(o);
-	}
+  /**
+   * Guarda el registro.
+   * 
+   * @param o modelo
+   * 
+   * @return boolean <b>TRUE</b> exito <b>FALSE</b> fallo
+   */
+  public static boolean save(Nota o) {
+	return (o.id == 0) ? insert(o) : update(o);
+  }
 
-	/**
-	 * Inserta un registro en la db.
-	 * 
-	 * @param o modelo
-	 * 
-	 * @return boolean <b>TRUE</b> exito <b>FALSE</b> fallo
-	 */
-	public static boolean insert(Nota o) {
-		DB db = DB.db;
-		try {
-			return db.dao(Nota.class)
-					.insert(o);
-		} finally {
-			db.close();
-		}
+  /**
+   * Inserta un registro en la db.
+   * 
+   * @param o modelo
+   * 
+   * @return boolean <b>TRUE</b> exito <b>FALSE</b> fallo
+   */
+  public static boolean insert(Nota o) {
+	DB db = DB.db;
+	try {
+	  return db.dao(Nota.class)
+			.insert(o);
+	} finally {
+	  db.close();
 	}
+  }
 
-	/**
-	 * Actualiza un registro en la db.
-	 * 
-	 * @param o Modelo
-	 * 
-	 * @return boolean <b>TRUE</b> exito <b>FALSE</b> fallo
-	 */
-	public static boolean update(Nota o) {
-		DB db = DB.db;
-		try {
-			return db.dao(Nota.class)
-					.update(o) > 0;
-		} finally {
-			db.close();
-		}
+  /**
+   * Actualiza un registro en la db.
+   * 
+   * @param o Modelo
+   * 
+   * @return boolean <b>TRUE</b> exito <b>FALSE</b> fallo
+   */
+  public static boolean update(Nota o) {
+	DB db = DB.db;
+	try {
+	  return db.dao(Nota.class)
+			.update(o) > 0;
+	} finally {
+	  db.close();
 	}
+  }
 
-	/**
-	 * Elimina un registro.
-	 * 
-	 * @param id identificador
-	 * 
-	 * @return boolean <b>TRUE</b> exito <b>FALSE</b> fallo
-	 */
-	public static boolean delete(long id) {
-		DB db = DB.db;
-		try {
-			return db.dao(Nota.class)
-					.deleteById(id) > 0;
-		} finally {
-			db.close();
-		}
+  /**
+   * Elimina un registro.
+   * 
+   * @param id identificador
+   *
+   * @return boolean <b>TRUE</b> exito <b>FALSE</b> fallo
+   */
+  public static boolean delete(long id) {
+	DB db = DB.db;
+	try {
+	  return db.dao(Nota.class)
+			.deleteById(id) > 0;
+	} finally {
+		db.close();
 	}
+  }
 
-	public static OrmIterator<Nota> search(String q, Date date) throws SQLException {
-		DB db = DB.db;
-		OrmResultSet result = db.dao(Nota.class).queryBuilder()
-				//.select("*")
-				//.distinct()
-				//.from("tb_nota")
-				.where("CAST(fecha AS DATE)", "=", date.getTime())
-				.like("texto", q)
-				//.where_in("id", 50, 60, 30)
-				//.or_where_in("id", 22, 44)
-				//.where("id", ">", 14)
-				//.where_not_in("id", 50, 60, 30)
-				//.or_where_not_in("id", 22, 44)
-				//.not_like("texto", "jet")
-				//.join("tb_nota b", "tb_nota.id = b.id")
-				//.join("tb_nota c", "tb_nota.id = c.id", "LEFT")
-				.order_by("fecha", "DESC").order_by("id", "DESC")
-				//.group_by("tb_nota.id")
-				//.group_by("tb_nota.texto")
-				//.having("tb_nota = 'Hello world'")
-				//.limit(7, 25)
-		;
-		
-		return result.it(Nota.class);
-	}
+  public static OrmIterator<Nota> search(String q, Date date) throws SQLException {
+	DB db = DB.db;
+	OrmResultSet result = db.dao(Nota.class).queryBuilder()
+		//.select("*")
+		//.distinct()
+		//.from("tb_nota")
+		.where("CAST(fecha AS DATE)", "=", date.getTime())
+		.like("texto", q)
+		//.where_in("id", 50, 60, 30)
+		//.or_where_in("id", 22, 44)
+		//.where("id", ">", 14)
+		//.where_not_in("id", 50, 60, 30)
+		//.or_where_not_in("id", 22, 44)
+		//.not_like("texto", "jet")
+		//.join("tb_nota b", "tb_nota.id = b.id")
+		//.join("tb_nota c", "tb_nota.id = c.id", "LEFT")
+		.order_by("fecha", "DESC").order_by("id", "DESC")
+		//.group_by("tb_nota.id")
+		//.group_by("tb_nota.texto")
+		//.having("tb_nota = 'Hello world'")
+		//.limit(7, 25)
+	;
+	
+	return result.it(Nota.class);
+  }
 }
 ```
 
