@@ -33,7 +33,7 @@ public class Nota {
    * @return una lista del recurso.
    */
   public static List<Nota> getAll() {
-    DB db = DB.db;
+	DB db = DB.db;
 	try {
 	  return db.queryBuilder()
 			.order_by("fecha", "desc")
@@ -140,39 +140,39 @@ public class DB extends OrmDataBase {
 
 // Constantes
 
-	public static final String NAME = "notas.db";
-	public static final int VERSION = 1;
+  public static final String NAME = "notas.db";
+  public static final int VERSION = 1;
 
-	public static DB db = null;
+  public static DB db = null;
 
 // Constructor
 
-	private DB(Context context) {
-		super(context, NAME, null, VERSION);
-	}
+  private DB(Context context) {
+	super(context, NAME, null, VERSION);
+  }
 
 // Funciones
 
-	@Override public void onCreate(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE tb_nota ("
-				+ "id 		INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-				+ "fecha 	INTEGER, "
-				+ "texto 	TEXT)");
-	}
+  @Override public void onCreate(SQLiteDatabase db) {
+	db.execSQL("CREATE TABLE tb_nota ("
+			+ "id 		INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+			+ "fecha 	INTEGER, "
+			+ "texto 	TEXT)");
+  }
 
 
-	@Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		if (oldVersion < newVersion) {
-			db.execSQL("DROP TABLE IF EXISTS tb_nota");
+  @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+	if (oldVersion < newVersion) {
+	  db.execSQL("DROP TABLE IF EXISTS tb_nota");
 			
-			this.onCreate(db);
-		}
+	  this.onCreate(db);
 	}
+  }
 
-	public static void init(Context applicationContext) {
-		db = new DB(applicationContext);
-		db.getWritableDatabase();
-	}
+  public static void init(Context applicationContext) {
+	db = new DB(applicationContext);
+	db.getWritableDatabase();
+  }
 }
 ```
 
