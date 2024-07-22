@@ -24,7 +24,7 @@ public class Nota {
 // Constructor
 
   public Nota() {
-	// TODO Auto-generated constructor stub
+	  // TODO Auto-generated constructor stub
   }
 	
 // Funciones 
@@ -33,14 +33,14 @@ public class Nota {
    * @return una lista del recurso.
    */
   public static List<Nota> getAll() {
-	DB db = DB.db;
-	try {
-	  return db.queryBuilder()
-			.order_by("fecha", "desc")
-			.get_list(Nota.class);
-	} finally {
-	  db.close();
-	}
+	  DB db = DB.db;
+    try {
+      return db.queryBuilder()
+        .order_by("fecha", "desc")
+        .get_list(Nota.class);
+    } finally {
+      db.close();
+    }
   }
 
   /**
@@ -51,7 +51,7 @@ public class Nota {
    * @return boolean <b>TRUE</b> exito <b>FALSE</b> fallo
    */
   public static boolean save(Nota o) {
-	return (o.id == 0) ? insert(o) : update(o);
+	  return (o.id == 0) ? insert(o) : update(o);
   }
 
   /**
@@ -62,13 +62,13 @@ public class Nota {
    * @return boolean <b>TRUE</b> exito <b>FALSE</b> fallo
    */
   public static boolean insert(Nota o) {
-	DB db = DB.db;
-	try {
-	  return db.dao(Nota.class)
-			.insert(o);
-	} finally {
-	  db.close();
-	}
+    DB db = DB.db;
+    try {
+      return db.dao(Nota.class)
+        .insert(o);
+    } finally {
+      db.close();
+    }
   }
 
   /**
@@ -79,13 +79,13 @@ public class Nota {
    * @return boolean <b>TRUE</b> exito <b>FALSE</b> fallo
    */
   public static boolean update(Nota o) {
-	DB db = DB.db;
-	try {
-	  return db.dao(Nota.class)
-			.update(o) > 0;
-	} finally {
-	  db.close();
-	}
+    DB db = DB.db;
+    try {
+      return db.dao(Nota.class)
+        .update(o) > 0;
+    } finally {
+      db.close();
+    }
   }
 
   /**
@@ -96,39 +96,39 @@ public class Nota {
    * @return boolean <b>TRUE</b> exito <b>FALSE</b> fallo
    */
   public static boolean delete(long id) {
-	DB db = DB.db;
-	try {
-	  return db.dao(Nota.class)
-			.deleteById(id) > 0;
-	} finally {
-		db.close();
-	}
+    DB db = DB.db;
+    try {
+      return db.dao(Nota.class)
+        .deleteById(id) > 0;
+    } finally {
+      db.close();
+    }
   }
 
   public static OrmIterator<Nota> search(String q, Date date) throws SQLException {
-	DB db = DB.db;
-	OrmResultSet result = db.dao(Nota.class).queryBuilder()
-		//.select("*")
-		//.distinct()
-		//.from("tb_nota")
-		.where("CAST(fecha AS DATE)", "=", date.getTime())
-		.like("texto", q)
-		//.where_in("id", 50, 60, 30)
-		//.or_where_in("id", 22, 44)
-		//.where("id", ">", 14)
-		//.where_not_in("id", 50, 60, 30)
-		//.or_where_not_in("id", 22, 44)
-		//.not_like("texto", "jet")
-		//.join("tb_nota b", "tb_nota.id = b.id")
-		//.join("tb_nota c", "tb_nota.id = c.id", "LEFT")
-		.order_by("fecha", "DESC").order_by("id", "DESC")
-		//.group_by("tb_nota.id")
-		//.group_by("tb_nota.texto")
-		//.having("tb_nota = 'Hello world'")
-		//.limit(7, 25)
-	;
-	
-	return result.it(Nota.class);
+    DB db = DB.db;
+    OrmResultSet result = db.dao(Nota.class).queryBuilder()
+      //.select("*")
+      //.distinct()
+      //.from("tb_nota")
+      .where("CAST(fecha AS DATE)", "=", date.getTime())
+      .like("texto", q)
+      //.where_in("id", 50, 60, 30)
+      //.or_where_in("id", 22, 44)
+      //.where("id", ">", 14)
+      //.where_not_in("id", 50, 60, 30)
+      //.or_where_not_in("id", 22, 44)
+      //.not_like("texto", "jet")
+      //.join("tb_nota b", "tb_nota.id = b.id")
+      //.join("tb_nota c", "tb_nota.id = c.id", "LEFT")
+      .order_by("fecha", "DESC").order_by("id", "DESC")
+      //.group_by("tb_nota.id")
+      //.group_by("tb_nota.texto")
+      //.having("tb_nota = 'Hello world'")
+      //.limit(7, 25)
+    ;
+    
+    return result.it(Nota.class);
   }
 }
 ```
@@ -148,13 +148,13 @@ public class DB extends OrmDataBase {
 // Constructor
 
   private DB(Context context) {
-	super(context, NAME, null, VERSION);
+	  super(context, NAME, null, VERSION);
   }
 
 // Funciones
 
   @Override public void onCreate(SQLiteDatabase db) {
-	db.execSQL("CREATE TABLE tb_nota ("
+	  db.execSQL("CREATE TABLE tb_nota ("
 			+ "id 		INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
 			+ "fecha 	INTEGER, "
 			+ "texto 	TEXT)");
@@ -162,16 +162,16 @@ public class DB extends OrmDataBase {
 
 
   @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-	if (oldVersion < newVersion) {
-	  db.execSQL("DROP TABLE IF EXISTS tb_nota");
+	  if (oldVersion < newVersion) {
+	    db.execSQL("DROP TABLE IF EXISTS tb_nota");
 			
-	  this.onCreate(db);
-	}
+	    this.onCreate(db);
+	  }
   }
 
   public static void init(Context applicationContext) {
-	db = new DB(applicationContext);
-	db.getWritableDatabase();
+	  db = new DB(applicationContext);
+	  db.getWritableDatabase();
   }
 }
 ```
