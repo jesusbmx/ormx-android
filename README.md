@@ -107,7 +107,7 @@ public class Nota {
 
   public static OrmIterator<Nota> search(String q, Date date) throws SQLException {
     DB db = DB.db;
-    OrmResultSet result = db.dao(Nota.class).queryBuilder()
+    QueryBuilder query = db.dao(Nota.class).queryBuilder()
       //.select("*")
       //.distinct()
       //.from("tb_nota")
@@ -128,7 +128,7 @@ public class Nota {
       //.limit(7, 25)
     ;
     
-    return result.it(Nota.class);
+    return query.get_it(Nota.class);
   }
 }
 
