@@ -7,7 +7,7 @@ Convertir datos entre el sistema de tipos utilizado en un lenguaje de programaci
 Simple CRUD
 
 ```java
-@TableInfo(name = "nota")
+@TableInfo(name = "tb_nota")
 public class Nota {
 
   // Variables
