@@ -132,6 +132,7 @@ public class Nota {
     // return query.get_list(Nota.class); // List<Nota>
     // return query.get(Nota.class); // OrmResult
     // return query.get_first(Nota.class); // Nota
+    // return query.get_select_count("*"); // long
   }
 }
 
